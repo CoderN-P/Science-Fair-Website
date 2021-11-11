@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=100%; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Cairo&family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
+
+
+
+
+<script>
+  
+
+  function checkLogin(){
+
+  let ip1 = document.querySelector('#ipin').value;
+  document.querySelector('#result').innerHTML = '';
+  
+  let text1 = document.querySelector('#check_ip');
+
+  function isIPv4Address(inputString) {
+    let regex = new RegExp(/^(([0-9]{1,3}\.){3}[0-9]{1,3})$/);
+    if(regex.test(inputString)){
+        let arInput = inputString.split(".")
+        for(let i of arInput){
+            if(i.length > 1 && i.charAt(0) === '0')
+                return false;
+            else{
+                if(parseInt(i) < 0 || parseInt(i) >=256)
+                   return false;
+            }
+        }
+    }
+    else
+        return false;
+    return true;
+}
+
+if (isIPv4Address(ip1) == false){
+    text1.innerHTML = 'That is not a valid IPv4 address';
+    text1.style.color = 'red';
+    return;
+} else {
+  text1.innerHTML = ''
+}
+    
+  
+  
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/setlogin", true);
+    xhttp.setRequestHeader('Content-type', 'application/json');
+  xhttp.addEventListener('load', reqListener);
+  
+
+  xhttp.send(JSON.stringify({ip: document.querySelector('#ipin').value, password: document.querySelector('#psw').value}));
+}
+
+function reqListener() {
+    let text = document.getElementById('result')
+    if (this.responseText == 'true'){
+      
+      text.innerHTML='Your login attempt was successful';
+
+      let ip = document.querySelector('#ipin').value;
+      let psw = document.querySelector('#psw').value;
+
+      
+      document.cookie = `ip=${ip};`;
+      document.cookie = `password=${psw};`;
+      text.style.color = 'green';
+      window.location.href='/dashboard';
+      
+    } else {
+    
+      text.innerHTML='The ip and/or password you entered was incorrect';
+      text.style.color = 'red';
+      
+    }
+  }
+
+
+</script>
+
+<style>
+@import "bourbon";
+
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700);
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
+
+$shadow-color: #23203b;
+$input-color: lighten(#AB9E95, 10%);
+$input-border-color: #5E5165;
+$button-background-color: #27AE60;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html { 
+  background: url(https://dl.dropboxusercontent.com/u/159328383/background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body {
+  background: transparent;
+}
+
+body, input, button {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+@mixin normalize-input {
+  display: block;
+  width: auto;
+  height: auto;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: none;
+  border-radius: 0px;
+}
+
+.login {
+  padding: 15px;
+  width: 400px;
+  min-height: 400px;
+  margin: 2% auto 0 auto;
+
+  .heading {
+    text-align: center;
+    margin-top: 1%;
+
+    h2 {
+      font-size: 3em;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.7);
+      display: inline-block;
+      padding-bottom: 5px;
+      text-shadow: 1px 1px 3px $shadow-color;
+    }
+  }
+
+  form {
+    .input-group {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+      &:last-of-type {
+        border-top: none;
+      }
+
+      span {
+        background: transparent;
+        min-width: 53px;
+        border: none;
+
+        i {
+          font-size: 1.5em;
+          color: rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+
+    input.form-control {
+      @include normalize-input;
+
+      padding: 10px;
+      font-size: 1.6em;
+      width: 100%;
+      background: transparent;
+      color: $input-color;
+
+      &:focus {
+        border: none;
+      }
+    }
+
+    button {
+      margin-top: 20px;
+      background: $button-background-color;
+      border: none;
+      font-size: 1.6em;
+      font-weight: 300;
+      padding: 5px 0;
+      width: 100%;
+      border-radius: 3px;
+      color: lighten($button-background-color, 40%);
+      border-bottom: 4px solid darken($button-background-color, 10%);
+
+      &:hover {
+        background: tint($button-background-color, 4%);
+        -webkit-animation: hop 1s;
+        animation: hop 1s;
+      }
+    }
+  }
+}
+
+.float {
+  display: inline-block;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+
+.float:hover, .float:focus, .float:active {
+  -webkit-transform: translateY(-3px);
+  transform: translateY(-3px);
+}
+
+/* Large Devices, Wide Screens */
+
+@media only screen and (max-width : 1500px) {
+}
+
+@media only screen and (max-width : 1200px) {
+  .login {
+    width: 600px;
+    font-size: 2em;
+  }
+}
+
+@media only screen and (max-width : 1100px) {
+  .login {
+    margin-top: 2%;
+    width: 600px;
+    font-size: 1.7em;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+  .login {
+    margin-top: 1%;
+    width: 550px;
+    font-size: 1.7em;
+    min-height: 0;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+  .login {
+    margin-top: 0;
+    width: 500px;
+    font-size: 1.3em;
+    min-height: 0;
+  }
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+  .login {
+
+    h2 {
+      margin-top: 0;
+    }
+
+    margin-top: 0;
+    width: 400px;
+    font-size: 1em;
+    min-height: 0;
+  }
+}
+
+/* Custom, iPhone Retina */ 
+@media only screen and (max-width : 320px) {
+  .login {
+    margin-top: 0;
+    width: 200px;
+    font-size: 0.7em;
+    min-height: 0;
+  }
+}
+
+
+
+
+
+.topnav {
+  background: transparent;
+  position:absolute;
+  overflow: hidden;
+  display: flex;
+  z-index: 2;
+  height: 15vh;
+  vertical-align: top;
+  align: left;
+  width: 100%;
+}
+
+
+.topnav a {
+  float: right;
+  color: #92d0f7;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  transition: 0.5s;
+  margin-left: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.topnav a:hover {
+  color: #000000;
+}
+
+
+.topnav a.active {
+  color: #000000;
+}
+
+
+
+/* CSS */
+.button-28 {
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #3B3B3B;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+  will-change: transform;
+}
+
+.button-28:disabled {
+  pointer-events: none;
+}
+
+.button-28:hover {
+  color: #fff;
+  background-color: #1A1A1A;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-28:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+<center>
+
+<ul class="topnav">
+  <a  href="/"><strong><p>Home</p></strong></a>
+  <a href='https://github.com/CoderN-P'><strong><p>By Neel Parpia, 7th Grade</p></strong></a>
+  <a href='/signup'><p><strong>New? Sign Up</p></strong></a>
+</ul>
+
+<br>
+<br>
+
+<div class="login">
+  <div class="heading">
+    <h2>Login</h2>
+    <br>
+    <form id='main_form' action='#' onsubmit='checkLogin(); return false'>
+
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+        <input type="text" class="form-control" placeholder="Device IP" id='ipin'>
+          </div>
+       <p id='check_ip'></p>
+<br>
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+          <input type="password" class="form-control" placeholder="Password" id='psw'>
+        </div>
+  
+  <p id='result'></p>
+<br>
+        <button class='button-28'>Login</button>
+       </form>
+ 		</div>
+ </div>
+
+
+
+</div>
+</center>
+
+</body>
+</html>

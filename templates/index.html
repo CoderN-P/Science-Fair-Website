@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=100%; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;">
+<meta name="apple-mobile-web-app-capable" content="yes" />
 <link rel="preconnect" href="https://fonts.googleapis.com"> 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
 <link href="https://fonts.googleapis.com/css2?family=Cairo&family=Roboto:wght@300&display=swap" rel="stylesheet">
@@ -9,25 +10,28 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"> 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
-
-
 <style>
 div {
   animation-iteration-count: 5;
 }
 
 .topnav {
-  background-color: transparent;
+  background: transparent;
+  position:absolute;
   overflow: hidden;
   display: flex;
+  z-index: 2;
+  height: 15vh;
+  vertical-align: top;
+  align: left;
+  width: 100%;
 }
 
 
 .topnav a {
   float: right;
-  color: #E8F2FF;
+  color: #92d0f7;
   text-align: center;
-  font-size: 17px;
   font-family: 'Roboto', sans-serif;
   transition: 0.5s;
   margin-left: 10px;
@@ -38,17 +42,17 @@ div {
 }
 
 .topnav a:hover {
-  color: #14397d;
+  color: #FFFFFF;
 }
 
 
 .topnav a.active {
-  color: #14397d;
+  color: #FFFFFF;
 }
 
 
-  body{
-    background:linear-gradient(#91A1AB, rgb(0, 0, 0));
+body{
+    background:linear-gradient(#FFFFFF, rgb(0, 0, 0));
     color:white;
     
     
@@ -98,7 +102,6 @@ h3 {
   -webkit-text-size-adjust: 80%;
   font-family: 'Zen Kurenaido', sans-serif;;
   background: linear-gradient(to right, #FFFFFF, #73A1EB, #5BAAEB, #4173C4, #314AA3, #252A85, #0f124d, #000000);
-  font-size: 7vw;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   overflow: hidden; /* Ensures the content is not revealed until the animation */
@@ -108,28 +111,26 @@ h3 {
   width: fit-content;
   height: fit-content; /* Gives that scrolling effect as the typing happens */
   letter-spacing: .1em; /* Adjust as needed */
-  animation: animated-text 4s linear 1s 1 normal both, animated-cursor 600ms linear infinite;
+  
 }
 /* The typing effect */
 
-@keyframes animated-text{
-  from{width: 0;}
-  to{width: 90vw;}
-}
+
 
 /* cursor animations */
 
-@keyframes animated-cursor{
-  from{border-right-color: rgba(255,255,255,.75);}
-  to{border-right-color: transparent;}
-}
+
 
 /* The typewriter cursor effect */
 
+h2 {
+  font-size: 5vw;
+  font-family: 'Zen Kurenaido', sans-serif;
+}
 
 
-p {
-  font-size: 2vw;
+#main_text {
+  font-size: 17px;
   font-family: 'Zen Kurenaido', sans-serif;
 }
   
@@ -271,8 +272,8 @@ header {
 
 .card__content {
 	box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
-	background: rgb(255, 255, 255);
-	color: rgb(10, 5, 7);
+	background: rgb(15, 10, 5);
+	color: white;
 	border-radius: 1em;
 	overflow: hidden;
   font-family: 'Zen Kurenaido', sans-serif;
@@ -328,7 +329,31 @@ aside {
 }
 
 
+.hero { 
+  position: relative; 
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  padding: 0px;
 
+  text-align: center;
+  justify-content: center;
+  background-image: url('https://images.unsplash.com/photo-1520018627052-cade17c11af8?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2V0JTIwbGVhZnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80');
+  background-size: cover;
+  opacity: 0.75;
+  
+  &::before {  
+      content: "";
+      background-image: url('https://images.unsplash.com/photo-1520018627052-cade17c11af8?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2V0JTIwbGVhZnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80');
+      background-size: cover;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.75;
+  }
+}
 
 
 
@@ -337,38 +362,125 @@ aside {
 
 
 </style>
+<script>
+  function adjustFont() {
+    let width = document.documentElement.clientWidth;
+    if (width < 800){
+      document.getElementById('colorful').style.fontSize = '10vw';
+      document.getElementById('main_text').style.fontSize = '2vw';
+    } else {
+      document.getElementById('colorful').style.fontSize = '5em';
+      document.getElementById('main_text').style.fontSize = '17px';
+    }
+  }
+  document.addEventListener("DOMContentLoaded", adjustFont);
+  window.onresize = adjustFont;
+  
+</script>
+
 </head>
 <body>
-
+  
+<div class='hero'>
 
 <ul class="topnav">
-  <a class='active' href="#home"><strong>Home</strong></a>
-  <a  href="/connect"><strong>CONNECT DEVICE</strong></a>
-  <a><strong>By Neel Parpia, 7th Grade</strong></a>
+  <a  href="/dashboard"><strong><p id='main_text'>Dashboard</p></strong></a>
+  <a href='github.com/CoderN-P'><strong><p id='main_text'>By Neel Parpia, 7th Grade</p></strong></a>
  
 </ul>
 
 
-<div>
+
   
-  <center>
 
-<div style='background: linear-gradient(#91A1AB, rgb(0, 0, 0));'>
-<h1 id='colorful'> Science Fair 2021</h1>
+<div style='position:absolute;top:50%;left:50%;transform: translate(-50%, -50%);'>
+<h1 id='colorful'>
+  <span
+     class="txt-rotate"
+     data-period="2000"
+     data-rotate='["Science Fair 2021", "By Neel Parpia"]'></span>
+</h1>
+
+<script>
+ 
+  
+var TxtRotate = function(el, toRotate, period) {
+  this.toRotate = toRotate;
+  this.el = el;
+  this.loopNum = 0;
+  this.period = parseInt(period, 10) || 2000;
+  this.txt = '';
+  this.tick();
+  this.isDeleting = false;
+};
+
+TxtRotate.prototype.tick = function() {
+  var i = this.loopNum % this.toRotate.length;
+  var fullTxt = this.toRotate[i];
+
+  if (this.isDeleting) {
+    this.txt = fullTxt.substring(0, this.txt.length - 1);
+  } else {
+    this.txt = fullTxt.substring(0, this.txt.length + 1);
+  }
+
+  this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+  var that = this;
+  var delta = 300 - Math.random() * 100;
+
+  if (this.isDeleting) { delta /= 2; }
+
+  if (!this.isDeleting && this.txt === fullTxt) {
+    delta = this.period;
+    this.isDeleting = true;
+  } else if (this.isDeleting && this.txt === '') {
+    this.isDeleting = false;
+    this.loopNum++;
+    delta = 500;
+  }
+
+  setTimeout(function() {
+    that.tick();
+  }, delta);
+};
+
+window.onload = function() {
+  var elements = document.getElementsByClassName('txt-rotate');
+  for (var i=0; i<elements.length; i++) {
+    var toRotate = elements[i].getAttribute('data-rotate');
+    var period = elements[i].getAttribute('data-period');
+    if (toRotate) {
+      new TxtRotate(elements[i], JSON.parse(toRotate), period);
+    }
+  }
+  // INJECT CSS
+  var css = document.createElement("style");
+  css.type = "text/css";
+  css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid BLACK }";
+  document.body.appendChild(css);
+};
 
 
 
+</script>
 
 <h3><i>Raspberry Pi Smart Irrigation Controller</i></h3>
 
-<p> Never worry about your plants again!</p>
+<p id='main_text'> Never worry about your plants again!</p>
 
-<br>
-<br>
+
+  
+
+
+
+</div>
+</div>
+
 
 <center>
-</div>
-<div style='background: black;'>
+
+<div style='background: linear-gradient(black, #1d8532, #97dbf0, #FFFFFF);'>
   <h3>Features</h3>
   <br>
   <br>
@@ -378,47 +490,35 @@ aside {
 			<div class="card__content">
 				<div>
       				<h2>Automatic Watering</h2>
-					<p>The Smart Irrigation controller waters your plants automatically and precisely, effectively reducing water wastage and saving you some precious time.</p>
+					<p>The smart irrigation controller waters your plants automatically and precisely. The device uses capacitive soil moisture sensors to measure the capacitance of the soil.  It uses this data to determine whether to activate the pump and water the plant.</p>
 					
 				</div>
 				<figure>
-					<img src="https://images.unsplash.com/photo-1630975220044-64824947aef9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=928&q=80" alt="Image description">
+					<img src="https://images.unsplash.com/photo-1520018627052-cade17c11af8?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2V0JTIwbGVhZnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80">
 				</figure>
 			</div>
 		</li>
 		<li class="card" id="card_2">
 			<div class="card__content">
 				<div>
-					<h2>Card Two</h2>
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-					<p><a href="#top" class="btn btn--accent">Read more</a></p>
+					<h2>Good for the Environment</h2>
+					<p>People often water too much or too little and end up wasting water. The smart irrigation controller solves that problem by watering with a pump. The settings for the pump can be adjusted and changed, so no water is wasted.</p>
+			
 				</div>
 				<figure>
-					<img src="https://codyhouse.co/demo-tutorials/stacking-cards/assets/img/img-2.jpg" alt="Image description">
+					<img src="https://c.pxhere.com/images/52/93/166295990d9b8675e0748428cc3b-1634394.jpg!d">
 				</figure>
 			</div>
 		</li>
 		<li class="card" id="card_3">
 			<div class="card__content">
 				<div>
-					<h2>Card Three</h2>
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-					<p><a href="#top" class="btn btn--accent">Read more</a></p>
+					<h2>"Smart"</h2>
+					<p>The "Smart" Irrigation controller is smart. It can be monitored through this website, where you can view the temperature, soil moisture level, and when your plant was last watered. The customizable settings allow you to change how long to water, and the soil moisture level to water at. On top of all this, you can water your plants using the website. Connect your device using the button below! </p>
+					<p><a href="/connect" class="btn btn--accent">Connect Device</a></p>
 				</div>
 				<figure>
-					<img src="https://codyhouse.co/demo-tutorials/stacking-cards/assets/img/img-3.jpg" alt="Image description">
-				</figure>
-			</div>
-		</li>
-		<li class="card" id="card_4">
-			<div class="card__content">
-				<div>
-					<h2>Card Four</h2>
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-					<p><a href="#top" class="btn btn--accent">Read more</a></p>
-				</div>
-				<figure>
-					<img src="https://codyhouse.co/demo-tutorials/stacking-cards/assets/img/img-2.jpg" alt="Image description">
+					<img src="https://st2.depositphotos.com/50337402/47109/v/600/depositphotos_471098404-stock-illustration-brain-blue-gradient-vector-icon.jpg" alt="Image description">
 				</figure>
 			</div>
 		</li>
