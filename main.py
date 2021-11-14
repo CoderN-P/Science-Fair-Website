@@ -24,7 +24,11 @@ def connect():
 @app.route('/dashboard')
 def dashboard():
   if 'ip' in request.cookies and 'password' in request.cookies:
-    return render_template('dashboard.html')
+    ip = request.cookies.get('ip')
+    password = request.cookies.get('password')
+    data = get_device(ip, password)
+    print(data)
+    return render_template('dashboard.html', data=data)
   else:
     return render_template('login.html')
     

@@ -11,7 +11,7 @@ def check_device(ip, password):
   return 'true'
 
 def get_device(ip, password):
-  data = registered_devices.find_one({"_id": ip, "password": password})
+  data = registered_devices.find_one({"_id": ip, "Password": password})
 
   return dict(data)
 
