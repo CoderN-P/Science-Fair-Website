@@ -17,7 +17,7 @@
   <script>
     function waterPlant(ip) {
       var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `http://${ip}:5000/webhook`, true);
+    xhttp.open("POST", `http://${ip}:5000/webhook`, true);
     xhttp.setRequestHeader('Content-type', 'application/json');
   xhttp.addEventListener('load', reqListener);
   
