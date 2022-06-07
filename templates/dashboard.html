@@ -13,29 +13,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"> 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
+    <script src="./static/js/dashboard.js"
 
-  <script>
-    function waterPlant(ip) {
-      var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", `http://${ip}:5000/webhook`, true);
-    xhttp.setRequestHeader('Content-type', 'application/json');
-  xhttp.addEventListener('load', reqListener);
-  
 
-  xhttp.send(JSON.stringify({ip: document.querySelector('#ipin').value, password: document.querySelector('#psw').value}));
-}
-
-function reqListener() {
-      let text = document.querySelector('#result');
-
-      text.innerHTML='Your plant was successfully watered!';
-      text.style.color = 'green';
-      
-      
-}
-      
-
-</script>
 <style>
   .hero { 
   position: relative; 

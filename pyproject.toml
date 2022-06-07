@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "repl_python3_Science-Fair-Website"
+name = "Science-Fair-Website"
 version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
@@ -9,6 +9,7 @@ python = "^3.8"
 Flask = "^2.0.2"
 dnspython = "^2.1.0"
 pymongo = "^3.12.1"
+python-dotenv = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
 
